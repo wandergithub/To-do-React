@@ -3,31 +3,42 @@ import PropTypes from 'prop-types';
 import TodoItem from './TodoItem';
 
 class TodosList extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {};
+  }
+
   render() {
-    const { deleteTodoProps, handleChangeProps } = this.props;
+    const {
+      todos, handleChangeProps, deleteTodoProps, setUpdate,
+    } = this.props;
     return (
       <ul>
-        {this.props.todos.map((todo) => (
+        {todos.map((todo) => (
           <TodoItem
             key={todo.id}
             todo={todo}
             handleChangeProps={handleChangeProps}
             deleteTodoProps={deleteTodoProps}
+            setUpdate={setUpdate}
           />
         ))}
       </ul>
     );
   }
 }
+
 TodosList.propTypes = {
-  deleteTodoProps: PropTypes.func,
-  handleChangeProps: PropTypes.func,
-  todos: PropTypes.object,
-};
-TodosList.defaultProps = {
-  deleteTodoProps: () => {},
-  handleChangeProps: () => {},
-  todos: {},
+  todos: PropTypes.arrayOf(
+    PropTypes.shape({
+      id: PropTypes.string.isRequired,
+      title: PropTypes.string.isRequired,
+      completed: PropTypes.bool.isRequired,
+    }),
+  ).isRequired,
+  handleChangeProps: PropTypes.func.isRequired,
+  deleteTodoProps: PropTypes.func.isRequired,
+  setUpdate: PropTypes.func.isRequired,
 };
 
 export default TodosList;

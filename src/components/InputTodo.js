@@ -15,9 +15,10 @@ class InputTodo extends Component {
   }
 
   handleSubmit = (e) => {
+    const { title, addTodoProps } = this.state;
     e.preventDefault();
-    if (this.state.title.trim()) {
-      this.props.addTodoProps(this.state.title);
+    if (title.trim()) {
+      addTodoProps(title);
       this.setState({
         title: '',
       });
@@ -27,17 +28,18 @@ class InputTodo extends Component {
   };
 
   render() {
+    const { title } = this.state;
     return (
       <form onSubmit={this.handleSubmit} className="form-container">
         <input
           type="text"
           placeholder="Add Todo..."
           className="input-text"
-          value={this.state.title}
+          value={title}
           name="title"
           onChange={this.onChange}
         />
-        <button className="input-submit">Submit</button>
+        <button className="input-submit" type="button">Submit</button>
       </form>
     );
   }
